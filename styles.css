@@ -5,7 +5,7 @@ body{text-align: center;background: #f2f6f8;}
     display:inline-block;
     width:1024px;
     height:1024px;
-    background-image: url("map.png");
+    background-image: url("images/de_cbble.png");
     position:relative; 
     border:5px solid black; 
     border-radius: 10px; 

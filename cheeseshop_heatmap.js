@@ -21,7 +21,7 @@ function Heatmap(mapName, elementId) {
   this.translate_coordinates = function (x_game, y_game){
     pos_x = mapData.pos_x;
     pos_y = mapData.pos_y;
-    scale_factor = 6.scale;
+    scale_factor = mapData.scale;
 
     x_prime = (x_game - pos_x) / scale_factor;
     y_prime = (pos_y - y_game) / scale_factor;

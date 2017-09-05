@@ -9,7 +9,7 @@ window.requestAnimationFrame = window.requestAnimationFrame ||
 var heatmap = new Heatmap("de_cache", "canvas");
 
 // Setup websocket connection
-var connection = new WebSocket('ws://localhost:5051/games/csgo/gsi/sources/032ea9b5-867f-462f-98a7-5c415272ceee/play');
+var connection = new WebSocket('ws://192.168.0.4:8080/games/csgo/gsi/sources/974f9128-b32c-4c76-b89c-f4fc6d8e2103/play');
 
 connection.onopen = function(){
   /*Send a small message to the console once the connection is established */
