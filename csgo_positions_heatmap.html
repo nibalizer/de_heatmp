@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+{% block title %}CS:GO Death Log{% endblock %}
+{% block head %}
+<script src="/static/js/webgl-heatmap.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font: 13px Helvetica, Arial; }
+</style>
+{% endblock %}
+{% block content %}
+    <canvas id="heatmap_canvas" height="1000" width="1000"></canvas>
+    <div id="map_image">
+      <!--<img src="/static/map_images/de_mirage_radar.png">-->
+      <!-- <img src="/static/map_images/de_cbble_radar.png"> -->
+      <!-- <img src="/static/map_images/de_overpass_radar.png"> -->
+      <img src="/static/map_images/de_inferno_radar.png"> 
+    </div>
+    <ul id="positions"></ul>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      $(function () {
+
+
+        try{
+              var heatmap = createWebGLHeatmap({canvas: heatmap_canvas});
+        }
+        catch(error){
+              // handle the error
+             console.log(error);
+        }
+
+        var all_players_positions = {};
+        var connection = new WebSocket('{{ gsi_websocket_url }}');
+        connection.onopen = function(){
+          /*Send a small message to the console once the connection is established */
+          console.log('Connection open!');
+        }
+        connection.onmessage = function(msg){
+          //console.log(msg);
+          msg = JSON.parse(msg.data);
+          //console.log(Object.keys(msg.allplayers));
+          //$("#deathlog").html("");
+          if ("allplayers" in msg) {
+            Object.keys(msg.allplayers).forEach ( function (steam_id, index) {
+              //$('#deathlog').append($('<li>').text("Player: " + steam_id+ " // Kills: " + msg.allplayers[steam_id]['match_stats']['kills']));
+              position =  msg.allplayers[steam_id].position;
+              all_players_positions[steam_id] = position;
+              //window.scrollTo(0, document.body.scrollHeight);
+
+
+              //console.log(msg.allplayers[steam_id]['match_stats']);
+            });
+            $('#positions').html("");
+            Object.keys(all_players_positions).forEach ( function (steam_id, index) {
+              var position = all_players_positions[steam_id].split(',').map(parseFloat);
+              var pos_x = (position[0] + 3000) / 6;
+              var pos_y = 1000 - ((position[1] + 3000) / 6);
+              console.log("raw x: " + position[0] + ", raw y: " + position[1] + "  x: " + pos_x + ", y: " + pos_y);
+
+              heatmap.addPoint(pos_x, pos_y, 10, 1);
+
+              $('#positions').append($('<li>').text("Player: " + steam_id + " is at: " + pos_x + ", " + pos_y));
+            });
+          };
+        };
+        var count = 0;
+        while(count < 200){
+          console.log("out");
+          heatmap.addPoint(200, 240, 10, 10);
+          count += 1;
+        };
+
+      });
+    </script>
+{% endblock %}
+
