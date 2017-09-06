@@ -1,36 +1,36 @@
 //var cheeseshop_heatmap = require("./cheeseshop_heatmap.js");
 
 
-var heatmap = new de_heatmp("de_cache", "canvas");
 
-// Setup websocket connection
-var connection = new WebSocket('ws://192.168.0.4:8080/games/csgo/gsi/sources/974f9128-b32c-4c76-b89c-f4fc6d8e2103/play');
+var translate_coordinates = function (x_game, y_game){
+  pos_x = csgoMaps.mapDetails["de_cbble"].pos_x;
+  pos_y = csgoMaps.mapDetails["de_cbble"].pos_y;
+  scale_factor = csgoMaps.mapDetails["de_cbble"].scale;
 
-connection.onopen = function(){
-  /*Send a small message to the console once the connection is established */
-  console.log('Connection open!');
+  x_prime = (x_game - pos_x) / scale_factor;
+  y_prime = (pos_y - y_game) / scale_factor;
+
+  return {"x": x_prime, "y": y_prime};
 }
+var derp = {};
 
-// respond to websocket messages
-connection.onmessage = function(msg){
-  //console.log("message recieved, captian");
-  payload = JSON.parse(msg.data);
-  if ("allplayers" in payload){
-    // get positional data points, draw
-
-    Object.keys(payload.allplayers).forEach ( function(player_id, index) {
-      console.log("player id: " + player_id);
+$.getJSON( "examples/example_position_data.json", function (data ) {
+  derp = data;
+  heat_data = [];
+  data.forEach ( function(gamestate_event, index) {
+    Object.keys(gamestate_event).forEach ( function(player_id, index) {
       // get position of player  - translate into heatmap coordinates - display
-      position = payload.allplayers[player_id].position.split(",").map(parseFloat);
-      console.log(payload.allplayers[player_id].name + " " + payload.allplayers[player_id].team );
+      position = gamestate_event[player_id].position.split(",").map(parseFloat);
+      //console.log(gamestate_event[player_id].name + " " + gamestate_event[player_id].team );
       console.log(position);
-      updated_position = (heatmap.translate_coordinates(position[0], position[1]));
+      updated_position = (translate_coordinates(position[0], position[1]));
       console.log(updated_position);
-      heatmap.heat.add([updated_position["x"], updated_position["y"], 2]);
+      heat_data.push([updated_position["x"], updated_position["y"], 2]);
     });
-  }
-}
+  });
+  var heatmap = new de_heatmp("de_cbble", "canvas", heat_data);
+  // Draw heatmap
+  heatmap.draw();
+});
 
-// Draw heatmap
-heatmap.draw();
 

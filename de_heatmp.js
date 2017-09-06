@@ -50,22 +50,14 @@ function get(id) {
   return document.getElementById(id);
 }
 
-function de_heatmp(mapName, elementId) {
+function de_heatmp(mapName, elementId, data) {
   // create the heatmap
   var frame = null;
   var null_data = [];
-  this.heat = simpleheat(elementId).data(null_data).max(18),
+  this.heat = simpleheat(elementId).data(data).max(18),
     frame;
   this.heat.radius(15, 10);
-  // simpleheat stuff, needs to be after draw() (??)
-  var radius = get('radius'),
-      blur = get('blur'),
-      changeType = 'oninput' in radius ? 'oninput' : 'onchange';
 
-  radius[changeType] = blur[changeType] = function (e) {
-      this.heat.radius(+radius.value, +blur.value);
-      frame = frame || window.requestAnimationFrame(draw);
-  };
 
   // get csgo map data
   var mapData = csgoMaps.mapDetails[mapName];
