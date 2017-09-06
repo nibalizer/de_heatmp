@@ -4,31 +4,6 @@ window.requestAnimationFrame = window.requestAnimationFrame ||
                                window.webkitRequestAnimationFrame ||
                                window.msRequestAnimationFrame;
 
-$("body").css({
-  "text-align": "center",
-  "background": "#f2f6f8",
-});
-$(".img").css({
-  "position": "absolute",
-  "z-index": "1",
-});
-
-$("#container").css({
-  "display": "inline-block",
-  "width": "1024px",
-  "height": "1024px",
-  "background-image": "url('images/de_cbble_radar.png')",
-  "position": "relative",
-  "border": "5px solid black",
-  "border-radius": "10px",
-  "float": "left",
-});
-
-$("#canvas").css({
-  "position": "relative",
-  "z-index": "20",
-});
-
 const csgoMaps  = {
   mapDetails : {
     "de_cache": {
@@ -82,7 +57,31 @@ translate_coordinates = function (x_game, y_game){
 
 
 function de_heatmp(elementId, mapName, coordinates_array) {
+  $("body").css({
+    "text-align": "center",
+    "background": "#f2f6f8",
+  });
 
+  $(".img").css({
+    "position": "absolute",
+    "z-index": "1",
+  });
+
+  $("#container").css({
+    "display": "inline-block",
+    "width": "1024px",
+    "height": "1024px",
+    "background-image": "url('images/" + mapName + "_radar.png')",
+    "position": "relative",
+    "border": "5px solid black",
+    "border-radius": "10px",
+    "float": "left",
+  });
+
+  $("#canvas").css({
+    "position": "relative",
+    "z-index": "20",
+  });
 
   // get csgo map data
   var mapData = csgoMaps.mapDetails[mapName];
