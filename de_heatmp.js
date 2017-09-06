@@ -46,17 +46,19 @@ const csgoMaps  = {
   }
 }
 
-function get(id) {
-  return document.getElementById(id);
+translate_coordinates = function (x_game, y_game){
+  pos_x = csgoMaps.mapDetails["de_cbble"].pos_x;
+  pos_y = csgoMaps.mapDetails["de_cbble"].pos_y;
+  scale_factor = csgoMaps.mapDetails["de_cbble"].scale;
+
+  x_prime = (x_game - pos_x) / scale_factor;
+  y_prime = (pos_y - y_game) / scale_factor;
+
+  return {"x": x_prime, "y": y_prime};
 }
 
-function de_heatmp(mapName, elementId, data) {
-  // create the heatmap
-  var frame = null;
-  var null_data = [];
-  this.heat = simpleheat(elementId).data(data).max(18),
-    frame;
-  this.heat.radius(15, 10);
+
+function de_heatmp(elementId, mapName, coordinates_array) {
 
 
   // get csgo map data
@@ -76,16 +78,24 @@ function de_heatmp(mapName, elementId, data) {
       return document.getElementById(id);
   }
 
-  this.translate_coordinates = function (x_game, y_game){
-    pos_x = mapData.pos_x;
-    pos_y = mapData.pos_y;
-    scale_factor = mapData.scale;
 
-    x_prime = (x_game - pos_x) / scale_factor;
-    y_prime = (pos_y - y_game) / scale_factor;
+  // main
 
-    return {"x": x_prime, "y": y_prime};
-  }
+  // translate coordinates from csgo x,y,z to postions on heatmap
+  var translated_coordinates = [];
+  coordinates_array.forEach ( function(point, index) {
+
+      updated_coordinates = (this.translate_coordinates(point[0], point[1]));
+      translated_coordinates.push([updated_coordinates["x"], updated_coordinates["y"], 2]);
+
+  });
+
+  // create the heatmap
+  var frame = null;
+  this.heat = simpleheat(elementId).data(translated_coordinates).max(18),
+    frame;
+
+  this.heat.radius(15, 10);
 }
 
 
