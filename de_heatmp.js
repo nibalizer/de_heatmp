@@ -1,10 +1,33 @@
-//let csgoMaps = require("./csgo_maps.js");
-//
 // Don't know what this does
 window.requestAnimationFrame = window.requestAnimationFrame ||
                                window.mozRequestAnimationFrame ||
                                window.webkitRequestAnimationFrame ||
                                window.msRequestAnimationFrame;
+
+$("body").css({
+  "text-align": "center",
+  "background": "#f2f6f8",
+});
+$(".img").css({
+  "position": "absolute",
+  "z-index": "1",
+});
+
+$("#container").css({
+  "display": "inline-block",
+  "width": "1024px",
+  "height": "1024px",
+  "background-image": "url('images/de_cbble_radar.png')",
+  "position": "relative",
+  "border": "5px solid black",
+  "border-radius": "10px",
+  "float": "left",
+});
+
+$("#canvas").css({
+  "position": "relative",
+  "z-index": "20",
+});
 
 const csgoMaps  = {
   mapDetails : {
