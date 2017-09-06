@@ -95,7 +95,7 @@ function de_heatmp(elementId, mapName, coordinates_array) {
   this.heat = simpleheat(elementId).data(translated_coordinates).max(18),
     frame;
 
-  this.heat.radius(15, 10);
+  this.heat.radius(9, 5);
 }
 
 
