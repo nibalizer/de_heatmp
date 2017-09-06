@@ -1,4 +1,4 @@
-var cheeseshop_heatmap = require("./cheeseshop_heatmap.js");
+//var cheeseshop_heatmap = require("./cheeseshop_heatmap.js");
 
 // Don't know what this does
 window.requestAnimationFrame = window.requestAnimationFrame ||
