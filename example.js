@@ -1,12 +1,7 @@
 //var cheeseshop_heatmap = require("./cheeseshop_heatmap.js");
 
-// Don't know what this does
-window.requestAnimationFrame = window.requestAnimationFrame ||
-                               window.mozRequestAnimationFrame ||
-                               window.webkitRequestAnimationFrame ||
-                               window.msRequestAnimationFrame;
 
-var heatmap = new Heatmap("de_cache", "canvas");
+var heatmap = new de_heatmp("de_cache", "canvas");
 
 // Setup websocket connection
 var connection = new WebSocket('ws://192.168.0.4:8080/games/csgo/gsi/sources/974f9128-b32c-4c76-b89c-f4fc6d8e2103/play');
@@ -32,7 +27,6 @@ connection.onmessage = function(msg){
       updated_position = (heatmap.translate_coordinates(position[0], position[1]));
       console.log(updated_position);
       heatmap.heat.add([updated_position["x"], updated_position["y"], 2]);
-      frame = frame || window.requestAnimationFrame(draw);
     });
   }
 }
@@ -40,12 +34,3 @@ connection.onmessage = function(msg){
 // Draw heatmap
 heatmap.draw();
 
-// simpleheat stuff, needs to be after draw() (??)
-var radius = heatmap.get('radius'),
-    blur = heatmap.get('blur'),
-    changeType = 'oninput' in radius ? 'oninput' : 'onchange';
-
-radius[changeType] = blur[changeType] = function (e) {
-    heatmap.heat.radius(+radius.value, +blur.value);
-    frame = frame || window.requestAnimationFrame(draw);
-};
