@@ -1,0 +1,19 @@
+---
+dist: trusty
+language: node_js
+node_js:
+  - "node"
+
+notifications:
+  email: false
+
+env:
+  - TEST_RUN="eslint ."
+
+before_install:
+  - npm install -g eslint eslint-config-google
+
+install:
+  - npm install .
+
+script: "$TEST_RUN"
