@@ -55,14 +55,10 @@ translate_coordinates = function(x_game, y_game) {
   return {"x": x_prime, "y": y_prime};
 };
 
-<<<<<<< HEAD
 
-function de_heatmp(elementId, mapName, coordinates_array, options = {}) {
-  var point_weight = options.point_weight || 2;
-=======
 // eslint-disable-next-line no-unused-vars, require-jsdoc
-function de_heatmp(element_id, map_name, coordinates_array) {
->>>>>>> Add linting, travis config, cleanup
+function de_heatmp(element_id, map_name, coordinates_array, options = {}) {
+  let point_weight = options.point_weight || 2;
   $("body").css({
     "text-align": "center",
     "background": "#f2f6f8",
@@ -106,14 +102,12 @@ function de_heatmp(element_id, map_name, coordinates_array) {
     return document.getElementById(id);
   };
 
-  // main
-
   // translate coordinates from csgo x,y,z to postions on heatmap
   let translated_coordinates = [];
   coordinates_array.forEach(function(point, index) {
-      updated_coordinates = (this.translate_coordinates(point[0], point[1]));
-      translated_coordinates.push([updated_coordinates["x"],
-        updated_coordinates["y"], point_weight]);
+    updated_coordinates = (this.translate_coordinates(point[0], point[1]));
+    translated_coordinates.push([updated_coordinates["x"],
+      updated_coordinates["y"], point_weight]);
   });
 
   // create the heatmap
