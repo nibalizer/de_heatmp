@@ -56,7 +56,8 @@ translate_coordinates = function (x_game, y_game){
 }
 
 
-function de_heatmp(elementId, mapName, coordinates_array) {
+function de_heatmp(elementId, mapName, coordinates_array, options = {}) {
+  var point_weight = options.point_weight || 2;
   $("body").css({
     "text-align": "center",
     "background": "#f2f6f8",
@@ -108,7 +109,7 @@ function de_heatmp(elementId, mapName, coordinates_array) {
   coordinates_array.forEach ( function(point, index) {
 
       updated_coordinates = (this.translate_coordinates(point[0], point[1]));
-      translated_coordinates.push([updated_coordinates["x"], updated_coordinates["y"], 2]);
+      translated_coordinates.push([updated_coordinates["x"], updated_coordinates["y"], point_weight]);
 
   });
 
