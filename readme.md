@@ -1,6 +1,10 @@
 CS:GO Heatmaps Library
 ----------------------
 
+Example:
+
+![ScreenShot Example](screenshot_cropped.png)
+
 
 Usage:
 
