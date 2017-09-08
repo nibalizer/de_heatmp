@@ -11,10 +11,10 @@
     <script src="de_heatmp.js"> </script>
     <script type="text/javascript">
     // Create heatmap, passing map name and array of csgo coordinates
-    console.log("sup");
     var points_array = [[-252, 668, 94]];
     //var points_array = [[-3163.21, 275.99, 0.03]];
-    var heatmap = new de_heatmp( "canvas", "de_cbble", points_array, {point_weight: 18} );
+    var options = {point_weight: 18};
+    var heatmap = new de_heatmp( "canvas", "de_cbble", points_array, options );
     // Draw heatmap
     heatmap.draw();
     </script>
