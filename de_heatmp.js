@@ -59,6 +59,7 @@ translate_coordinates = function(x_game, y_game) {
 // eslint-disable-next-line no-unused-vars, require-jsdoc
 function de_heatmp(element_id, map_name, coordinates_array, options = {}) {
   let point_weight = options.point_weight || 2;
+  let asset_prefix = options.asset_prefix || "";
   $("body").css({
     "text-align": "center",
     "background": "#f2f6f8",
@@ -73,7 +74,8 @@ function de_heatmp(element_id, map_name, coordinates_array, options = {}) {
     "display": "inline-block",
     "width": "1024px",
     "height": "1024px",
-    "background-image": "url('images/" + map_name + "_radar.png')",
+    "background-image": "url('" + asset_prefix + "images/"
+                             + map_name + "_radar.png')",
     "position": "relative",
     "border": "5px solid black",
     "border-radius": "10px",
