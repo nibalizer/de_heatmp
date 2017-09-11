@@ -1,12 +1,19 @@
-CS:GO Heatmaps Library
-----------------------
+de_heatmp
+---------
 
-Example:
+A js library for placing of a csgo minimap and easy heatmap overlay on top of that.
+
+
+
+Example
+-------
+
 
 ![ScreenShot Example](screenshot_cropped.png)
 
 
-Usage:
+Usage
+-----
 
 ```html
 <div id="container">
@@ -27,9 +34,17 @@ Usage:
 ```
 
 
+Options
+-------
 
-This allows placing of a csgo minimap and easy heatmap overlay on top of that.
 
+``asset_prefix``: a string prefix pointing to the location ``images/`` was tored with all the maps.
+
+``point_weight``: a number between 1 and 18 indicating the intensity of a single point
+
+
+About
+-----
 
 This uses [simpleheat](https://github.com/mourner/simpleheat), a super-tiny JavaScript library for drawing heatmaps with Canvas. Inspired by heatmap.js, but with focus on simplicity and performance.
 
