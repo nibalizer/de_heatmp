@@ -44,10 +44,10 @@ const csgo_maps = {
   },
 };
 
-translate_coordinates = function(x_game, y_game) {
-  pos_x = csgo_maps.map_details["de_cbble"].pos_x;
-  pos_y = csgo_maps.map_details["de_cbble"].pos_y;
-  scale_factor = csgo_maps.map_details["de_cbble"].scale;
+translate_coordinates = function(x_game, y_game, map_name) {
+  pos_x = csgo_maps.map_details[map_name].pos_x;
+  pos_y = csgo_maps.map_details[map_name].pos_y;
+  scale_factor = csgo_maps.map_details[map_name].scale;
 
   x_prime = (x_game - pos_x) / scale_factor;
   y_prime = (pos_y - y_game) / scale_factor;
@@ -107,7 +107,7 @@ function de_heatmp(element_id, map_name, coordinates_array, options = {}) {
   // translate coordinates from csgo x,y,z to postions on heatmap
   let translated_coordinates = [];
   coordinates_array.forEach(function(point, index) {
-    updated_coordinates = (this.translate_coordinates(point[0], point[1]));
+    updated_coordinates = (this.translate_coordinates(point[0], point[1], map_name));
     translated_coordinates.push([updated_coordinates["x"],
       updated_coordinates["y"], point_weight]);
   });
